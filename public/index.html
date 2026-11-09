@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#101827">
+<title>MineHost Panel</title><link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<header><a class="brand" href="/">⛏ MineHost</a><nav id="nav"></nav></header>
+<main>
+<section id="auth" class="auth card">
+  <div><span class="eyebrow">MINEHOST PLATFORM</span><h1>Hospede seu próximo mundo.</h1><p>Crie servidores Minecraft Java e Bedrock pelo painel ou direto do Element X.</p></div>
+  <div class="authbox">
+    <div class="tabs"><button id="loginTab" class="active">Entrar</button><button id="registerTab">Criar conta</button></div>
+    <form id="authForm"><label>E-mail<input name="email" type="email" required autocomplete="email"></label><label>Senha<input name="password" type="password" required minlength="10" autocomplete="current-password"></label><button class="primary" type="submit" id="authSubmit">Entrar</button><p id="authError" class="error"></p></form>
+  </div>
+</section>
+<section id="app" hidden>
+  <div class="welcome"><div><span class="eyebrow">PAINEL</span><h1 id="hello">Seus servidores</h1><p>Crie e gerencie tudo em um só lugar.</p></div><button id="logout" class="ghost">Sair</button></div>
+  <div id="adminStats" class="stats" hidden></div>
+  <div class="columns">
+    <section class="card"><div class="sectionhead"><h2>Criar servidor</h2><span class="pill" id="autoPill">Java + Bedrock</span></div>
+      <form id="serverForm" class="formgrid">
+        <label>Nome<input name="name" required minlength="3" maxlength="32" pattern="[A-Za-z0-9_-]+" placeholder="survival"></label>
+        <label>Edição<select name="edition" id="edition"><option value="java">Java Edition</option><option value="bedrock">Bedrock Edition</option></select></label>
+        <label>Software<select name="software" id="software"></select></label>
+        <label>Versão (opcional)<input name="version" maxlength="20" placeholder="última"></label>
+        <div class="plans full" id="plans">
+          <button type="button" class="ghost" data-ram="1024" data-disk="5120">Starter · 1 GB</button>
+          <button type="button" class="ghost" data-ram="2048" data-disk="10240">Médio · 2 GB</button>
+          <button type="button" class="ghost" data-ram="4096" data-disk="20480">Pro · 4 GB</button>
+        </div>
+        <label>RAM (MB)<input name="ram_mb" type="number" min="512" max="16384" value="2048" required></label>
+        <label>Disco (MB)<input name="disk_mb" type="number" min="1024" max="102400" value="5120" required></label>
+        <button class="primary full" type="submit" id="serverSubmit">Criar servidor</button>
+      </form>
+    </section>
+    <section class="card"><div class="sectionhead"><h2>Bot Matrix</h2><span class="pill">Element X</span></div>
+      <p class="muted" id="matrixState"></p>
+      <div class="row"><button id="matrixCode" class="secondary">Gerar código de vínculo</button><button id="matrixUnlink" class="ghost" hidden>Desvincular</button></div>
+      <div id="matrixResult" class="codebox"></div>
+      <p class="muted small">Use uma sala <b>sem criptografia</b> e convide o bot. Ele aceita o convite sozinho.</p>
+      <div class="divider"></div><h3>Comandos</h3>
+      <code>!ajuda</code><code>!link CODIGO</code><code>!criar nome java|bedrock</code><code>!servidores</code><code>!info ID</code><code>!iniciar ID</code><code>!parar ID</code><code>!status ID</code><code>!cmd ID comando</code><code>!excluir ID confirmar</code>
+    </section>
+  </div>
+  <section class="card tablecard"><div class="sectionhead"><h2>Meus servidores</h2><button id="refresh" class="ghost">Atualizar</button></div><div class="tablewrap"><table><thead><tr><th>Nome</th><th>Software</th><th>Recursos</th><th>Status</th><th>Endereço</th><th></th></tr></thead><tbody id="serverRows"></tbody></table></div></section>
+  <section id="admin" class="card" hidden><div class="sectionhead"><h2>Administração</h2><span class="pill">Administrador</span></div>
+    <h3>Solicitações recentes</h3><div class="tablewrap"><table><thead><tr><th>Usuário</th><th>Servidor</th><th>Tipo</th><th>Status</th><th>Ação</th><th></th></tr></thead><tbody id="adminRows"></tbody></table></div>
+    <div class="columns adminforms"><form id="providerForm"><h3>Cadastrar provedor</h3><label>Nome<input name="name" required></label><label>Tipo<select name="kind"><option value="official_api">API oficial</option><option value="managed_node">Máquina gerenciada</option></select></label><label>URL base<input name="base_url" type="url"></label><label>Observações<input name="notes"></label><button class="secondary">Cadastrar provedor</button></form>
+    <form id="nodeForm"><h3>Cadastrar máquina (registro)</h3><label>Nome<input name="name" required></label><label>Localização<input name="location"></label><label>RAM total (MB)<input name="capacity_ram_mb" type="number" value="8192"></label><label>Disco total (MB)<input name="capacity_disk_mb" type="number" value="50000"></label><button class="secondary">Cadastrar máquina</button><small>Registro administrativo; a criação real usa o Pterodactyl configurado no .env.</small></form></div>
+  </section>
+</section>
+</main><div id="toasts"></div><footer>MineHost Panel · Plataforma independente de hospedagem</footer>
+<script src="/app.js"></script>
+</body></html>
